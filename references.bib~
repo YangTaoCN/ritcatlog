@@ -1,0 +1,110 @@
+
+@article{Healy:2016lce,
+      author         = "Healy, James and Lousto, Carlos O.",
+      title          = "{Remnant of binary black-hole mergers: New simulations
+                        and peak luminosity studies}",
+      journal        = "Phys. Rev.",
+      volume         = "D95",
+      year           = "2017",
+      number         = "2",
+      pages          = "024037",
+      doi            = "10.1103/PhysRevD.95.024037",
+      eprint         = "1610.09713",
+      archivePrefix  = "arXiv",
+      primaryClass   = "gr-qc",
+      SLACcitation   = "%%CITATION = ARXIV:1610.09713;%%"
+}
+
+@article{Healy:2014yta,
+      author         = "Healy, James and Lousto, Carlos O. and Zlochower, Yosef",
+      title          = "{Remnant mass, spin, and recoil from spin aligned
+                        black-hole binaries}",
+      journal        = "Phys. Rev.",
+      number         = "10",
+      volume         = "D90",
+      pages          = "104004",
+      doi            = "10.1103/PhysRevD.90.104004",
+      year           = "2014",
+      eprint         = "1406.7295",
+      archivePrefix  = "arXiv",
+      primaryClass   = "gr-qc",
+      SLACcitation   = "%%CITATION = ARXIV:1406.7295;%%",
+}
+
+@article{Nakano:2015pta,
+      author         = "Nakano, Hiroyuki and Healy, James and Lousto, Carlos O.
+                        and Zlochower, Yosef",
+      title          = "{Perturbative extraction of gravitational waveforms
+                        generated with Numerical Relativity}",
+      journal        = "Phys. Rev.",
+      number         = "10",
+      volume         = "D91",
+      pages          = "104022",
+      doi            = "10.1103/PhysRevD.91.104022",
+      year           = "2015",
+      eprint         = "1503.00718",
+      archivePrefix  = "arXiv",
+      primaryClass   = "gr-qc",
+      SLACcitation   = "%%CITATION = ARXIV:1503.00718;%%",
+}
+
+@article{Lousto:2014ida,
+      author         = "Lousto, Carlos O. and Healy, James",
+      title          = "{Flip-flopping binary black holes}",
+      journal        = "Phys. Rev. Lett.",
+      number         = "14",
+      volume         = "114",
+      pages          = "141101",
+      doi            = "10.1103/PhysRevLett.114.141101",
+      year           = "2015",
+      eprint         = "1410.3830",
+      archivePrefix  = "arXiv",
+      primaryClass   = "gr-qc",
+      SLACcitation   = "%%CITATION = ARXIV:1410.3830;%%",
+}
+
+@article{Lousto:2015uwa,
+      author         = "Lousto, Carlos O. and Healy, James and Nakano, Hiroyuki",
+      title          = "{Spin flips in generic black hole binaries}",
+      journal        = "Phys. Rev.",
+      number         = "4",
+      volume         = "D93",
+      pages          = "044031",
+      doi            = "10.1103/PhysRevD.93.044031",
+      year           = "2016",
+      eprint         = "1506.04768",
+      archivePrefix  = "arXiv",
+      primaryClass   = "gr-qc",
+      SLACcitation   = "%%CITATION = ARXIV:1506.04768;%%",
+}
+
+@article{Lousto:2016nlp,
+      author         = "Lousto, Carlos O. and Healy, James",
+      title          = "{Unstable flip-flopping spinning binary black holes}",
+      journal        = "Phys. Rev.",
+      volume         = "D93",
+      year           = "2016",
+      number         = "12",
+      pages          = "124074",
+      doi            = "10.1103/PhysRevD.93.124074",
+      eprint         = "1601.05086",
+      archivePrefix  = "arXiv",
+      primaryClass   = "gr-qc",
+      SLACcitation   = "%%CITATION = ARXIV:1601.05086;%%"
+}
+
+@article{Lovelace:2016uwp,
+      author         = "Lovelace, Geoffrey and others",
+      title          = "{Modeling the source of GW150914 with targeted
+                        numerical-relativity simulations}",
+      journal        = "Class. Quant. Grav.",
+      volume         = "33",
+      year           = "2016",
+      number         = "24",
+      pages          = "244002",
+      doi            = "10.1088/0264-9381/33/24/244002",
+      eprint         = "1607.05377",
+      archivePrefix  = "arXiv",
+      primaryClass   = "gr-qc",
+      SLACcitation   = "%%CITATION = ARXIV:1607.05377;%%"
+}

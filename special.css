@@ -1,0 +1,11 @@
+tr:nth-child(even) {
+    background-color: #eeeeee;
+}
+
+/* Sortable tables */
+table.sortable thead {
+    background-color:#aaaaaa;
+    color:#0404B4;
+    font-weight: bold;
+    cursor: default;
+}
