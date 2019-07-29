@@ -7,6 +7,8 @@
 
 // Global. The array of range search columns' index. 
 var cols = [];
+var downloadLinks = []
+
 
 // Add range search function.
 $.fn.dataTable.ext.search.push(
@@ -63,41 +65,47 @@ jQuery(document).ready(function($){
           <button class="download-selected" type="button">Download Selected Items</button></br>\
           <p>Select All</p>\
           <div class="link-select" id="select-text">\
-          <label><input name="link-text" type="checkbox" value="" /> </label>\
+          <label><input name="link-text" type="checkbox" class="select-all" id="select-text" /> </label>\
           </div>\
           <div class="link-select" id="select-psi">\
-          <label><input name="link-psi" type="checkbox" value="" /> </label> </br>\
+          <label><input name="link-psi" type="checkbox" class="select-all" id="select-psi" /> </label> </br>\
           </div>\
           <div class="link-select" id="select-strain">\
-          <label><input name="link-strain" type="checkbox" value="" /> </label> </br>\
+          <label><input name="link-strain" type="checkbox" class="select-all" id="select-strain" /> </label> </br>\
           </div>\
         ');
       } else {
         $(this).html( '' );
       }
       order += 1;
-      
   } );
 
 
   var table = $('#example').DataTable();
 
+  // Add checkbox to the table
+
+  inputId = 0;
   $('.dataTables_scrollBody tbody tr td a img').each( function () {
     var aTag = this.parentNode;
     var inputTag = document.createElement("input" );
     inputTag.type = "checkbox";
-    if (this.src == "metadata.png"){
-      inputTag.name = "text-link";
-    } else if (this.src == "tarball.png") {
-      inputTag.name = "text-link";
+    inputTag.id = "link-"+inputId;
+    if (this.src.indexOf("metadata.png") > -1){
+      inputTag.name = "select-text";
+    } else if (this.src.indexOf("strain_tarball.png") > -1) {
+      inputTag.name = "select-strain";
     } else {
-      inputTag.name = "text-link";
+      inputTag.name = "select-psi";
     }
-    
-
     aTag.prepend(inputTag);
-    
+    aTag.target = "view_window";
+    names = aTag.href.split('/');
+    console.log(names);
+    aTag.download = names.pop();
+    inputId += 1;
   });
+
 
   // Move the input to header.
   var inputTitle = $('.dataTables_scrollFoot tfoot tr');
@@ -105,6 +113,44 @@ jQuery(document).ready(function($){
 
   // Do a draw to maintain dataTables Layout
   table.draw();
+
+  // Listening to input event.
+  $("input[type='checkbox']").each(function (){
+    $("#" + this.id).on("change", function () {
+      if ($("#"+this.id).is(":checked") ) {
+        // add link if checked
+        if (downloadLinks.indexOf(this.parentNode.href) === -1) {
+          downloadLinks.push(this.parentNode.href);
+        }
+      } else {
+        // remove link if unchecked
+        var remove = downloadLinks.indexOf(this.parentNode.href);
+        if (remove > -1) {
+          downloadLinks.splice(remove, 1);
+        }
+      }
+      console.log(downloadLinks);
+    });
+  });
+
+  // Select all, remove all
+  $(".select-all").on("change", function () {
+    if ($("thead #" + this.id).is(":checked")) {
+      $("input[name=" + this.id + "]").prop("checked", true).each(function () {
+        if (downloadLinks.indexOf(this.parentNode.href) === -1) {
+          downloadLinks.push(this.parentNode.href);
+        }
+      } );          
+    } else {
+      $("input[name=" + this.id + "]").prop("checked", false).each(function () {
+        var remove = downloadLinks.indexOf(this.parentNode.href);
+        if (remove > -1) {
+          downloadLinks.splice(remove, 1);
+        }
+      } );    
+    }
+  });
+
 
 
   // Apply the search
@@ -124,5 +170,4 @@ jQuery(document).ready(function($){
           that.draw();
       } );
   } );
-
 });
