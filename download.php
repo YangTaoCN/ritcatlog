@@ -1,35 +1,51 @@
 <?php
-$imgs[] = 'http://demo.pic.com/column_f/large/IMG_Af8P_15.jpg';
-$imgs[] = 'http://demo.pic.com/column_f/large/IMG_l89P_08.jpg';
+$file = $_GET['f'];
 
-$filename = 'tmp.zip';
+function down_file($filename,$allowDownExt=array ('jpg','jpeg','gif', 'rar','zip','png','txt','html')) {
+        // Check if file exist and readable
+        if(!is_file($filename) && is_readable($filename)) {
+            return false;
+        }
 
-$zip = new ZipArchive();
-$zip->open($filename, ZipArchive::OVERWRITE);
+        // Get the extention of the file
+        $fileext=strtolower(pathinfo($filename,PATHINFO_EXTENSION));
 
-foreach ($imgs as $key=>$vo) {
-    $fileData = file_get_contents($vo);
-    if ($fileData) {
-        $zip->addFromString($key.'.jpg', $fileData);
-    }
+        // Check if the file type is in the allowed array. 
+        if(!in_array($fileext,$allowDownExt)) {
+            return false;
+        }
+
+        // Set the time limit to unlimited
+        set_time_limit(0);
+
+        // Download header. 
+        header('content-type:application/octet-stream');
+        header('Accept-Ranges:bytes');
+
+        // Get the size of the file. 
+        $filesize=filesize($filename);
+
+        // Pass the size to browser
+        header('Accept-Length:'.$filesize);
+        header('content-disposition:attachment;filename='.basename($filename));
+
+        // For large files. Set the limit of each transfer to 4k
+        $read_buffer=4096;
+        $handle=fopen($filename, 'rb');
+        // Sum of all the buffer.
+        $sum_buffer=0;
+
+        // Keep reading untill the end of the file.
+        while(!feof($handle) && $sum_buffer<$filesize) {           
+            echo fread($handle,$read_buffer);
+            $sum_buffer+=$read_buffer;
+        }
+
+        // close file. 
+        fclose($handle);
+   	// delete file
+	unlink($filename);
+        exit;
 }
 
-
-$zip->close();
-
-$file = fopen($filename, "r");
-Header("Content-type: application/octet-stream");
-Header("Accept-Ranges: bytes");
-Header("Accept-Length: " . filesize($filename));
-Header("Content-Disposition: attachment; filename=imgages.zip");
-//一次只传输1024个字节的数据给客户端
-$buffer = 1024; //
-while (!feof($file)) {
-    //将文件读入内存
-    $file_data = fread($file, $buffer);
-    //每次向客户端回送1024个字节的数据
-    echo $file_data;
-}
-fclose($file);
-unlink($filename);
-?>
+down_file($file);

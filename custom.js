@@ -5,9 +5,56 @@
 * 
 */
 
+
 // Global. The array of range search columns' index. 
+
 var cols = [];
-var downloadLinks = []
+var downloadLinks = [];
+
+/**
+ *  * Js open new window and post
+ *   * @param URL
+ *    * @param PARAMS
+ *     */
+function postOpenWindow(URL, PARAMS) {
+    var temp_form = document.createElement("form");
+    temp_form.action = URL;
+    temp_form.target = "_blank";
+    temp_form.method = "post";
+    temp_form.style.display = "none";
+    for (var x in PARAMS) {
+        var opt = document.createElement("textarea");
+        opt.name = x;
+        opt.value = PARAMS[x];
+        temp_form.appendChild(opt);
+    }
+    document.body.appendChild(temp_form);
+    temp_form.submit();
+}
+
+function addCheckbox (){
+        console.log($('.dataTables_scrollBody tbody tr td a input').length);
+        if ( $('.dataTables_scrollBody tbody tr td a input').length == 0) {
+                $('.dataTables_scrollBody tbody tr td a img').each( function () {
+                    var aTag = this.parentNode;
+                    var inputTag = document.createElement("input" );
+                    inputTag.type = "checkbox";
+                    inputTag.id = "link-"+inputId;
+                    if (this.src.indexOf("metadata.png") > -1){
+                      inputTag.name = "select-text";
+                    } else if (this.src.indexOf("strain_tarball.png") > -1) {
+                      inputTag.name = "select-strain";
+                    } else {
+                      inputTag.name = "select-psi";
+                    }
+                    aTag.prepend(inputTag);
+                    aTag.target = "view_window";
+                    names = aTag.href.split('/');
+                    aTag.download = names.pop();
+                    inputId += 1;
+                });
+        }       
+}
 
 
 // Add range search function.
@@ -101,7 +148,6 @@ jQuery(document).ready(function($){
     aTag.prepend(inputTag);
     aTag.target = "view_window";
     names = aTag.href.split('/');
-    console.log(names);
     aTag.download = names.pop();
     inputId += 1;
   });
@@ -119,17 +165,16 @@ jQuery(document).ready(function($){
     $("#" + this.id).on("change", function () {
       if ($("#"+this.id).is(":checked") ) {
         // add link if checked
-        if (downloadLinks.indexOf(this.parentNode.href) === -1) {
-          downloadLinks.push(this.parentNode.href);
+        if (downloadLinks.indexOf(this.parentNode.getAttribute('href', 2)) === -1) {
+          downloadLinks.push(this.parentNode.getAttribute('href', 2));
         }
       } else {
         // remove link if unchecked
-        var remove = downloadLinks.indexOf(this.parentNode.href);
+        var remove = downloadLinks.indexOf(this.parentNode.getAttribute('href', 2));
         if (remove > -1) {
           downloadLinks.splice(remove, 1);
         }
       }
-      console.log(downloadLinks);
     });
   });
 
@@ -137,13 +182,13 @@ jQuery(document).ready(function($){
   $(".select-all").on("change", function () {
     if ($("thead #" + this.id).is(":checked")) {
       $("input[name=" + this.id + "]").prop("checked", true).each(function () {
-        if (downloadLinks.indexOf(this.parentNode.href) === -1) {
-          downloadLinks.push(this.parentNode.href);
+        if (downloadLinks.indexOf(this.parentNode.getAttribute('href', 2)) === -1) {
+          downloadLinks.push(this.parentNode.getAttribute('href', 2));
         }
       } );          
     } else {
       $("input[name=" + this.id + "]").prop("checked", false).each(function () {
-        var remove = downloadLinks.indexOf(this.parentNode.href);
+        var remove = downloadLinks.indexOf(this.parentNode.getAttribute('href', 2));
         if (remove > -1) {
           downloadLinks.splice(remove, 1);
         }
@@ -151,7 +196,58 @@ jQuery(document).ready(function($){
     }
   });
 
+  $(".download-selected").click(function(){
+    if (downloadLinks.length === 0) {
+      alert("No selected files! Please check the boxes to select.");
+    } else {
+      postOpenWindow("package.php", downloadLinks);
+    }
+  });
+	
+  // Listening to page change
+  $('#example_info').bind("DOMSubtreeModified", function(){
+   	addCheckbox();
+  });
 
+
+/*
+function(){
+	if ( $('.dataTables_scrollBody tbody tr td a input').length =  0) {
+		$('.dataTables_scrollBody tbody tr td a img').each( function () {
+		    var aTag = this.parentNode;
+		    var inputTag = document.createElement("input" );
+		    inputTag.type = "checkbox";
+		    inputTag.id = "link-"+inputId;
+		    if (this.src.indexOf("metadata.png") > -1){
+		      inputTag.name = "select-text";
+		    } else if (this.src.indexOf("strain_tarball.png") > -1) {
+		      inputTag.name = "select-strain";
+		    } else {
+		      inputTag.name = "select-psi";
+		    }
+		    aTag.prepend(inputTag);
+		    aTag.target = "view_window";
+		    names = aTag.href.split('/');
+		    aTag.download = names.pop();
+		    inputId += 1;
+		});
+	}	
+  } */
+
+  // when the length change, remove all the selected files and uncheck the boxes.
+  $("[name='example_length']" ).change( function(){ 
+	downloadLinks = [];
+	console.log(downloadLinks);
+   	$('.select-all').each( function(){
+		if ($('thead #' + this.id).is(":checked")){
+			this.click();
+		} else {
+			this.click();
+			this.click();
+		}
+
+	});
+  });
 
   // Apply the search
   table.columns().every( function () {
