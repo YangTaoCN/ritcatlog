@@ -1,3 +1,7 @@
+body {
+  visibility: hidden;
+}
+
 th .search{
 	display: block;
 	width: 100%;
@@ -25,6 +29,11 @@ a input {
 	font-weight: 600;
 }
 
+body h1 {
+  color: #FE6F34;
+  font-family: Helvetica;
+}
+
 .download-selected:active {
   background-color: #4CA5A5;
   color: #000;
@@ -34,16 +43,29 @@ a input {
 	text-align: center;
 }
 
-/*.dataTables_scrollHeadInner tr {
-  height: 50px;
-}*/
-
-
 table.dataTable thead tr:first-child th{
 	padding-left: 1px;
 	padding-right: 1px;
 }
 
-/*.dataTables_scrollBody #example thead {
-	display: none;
-}*/
+.logo {
+  max-width: 400px;
+}
+
+.dataTables_scrollBody tbody .odd td:first-child {
+  background-color: #46A2A2!important;
+}
+
+.dataTables_scrollBody tbody .even td:first-child {
+  background-color: #9ECECE!important;
+}
+
+body a,
+.intro-text td:first-child a {
+  color: #007F7F;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+	.logo {display: none;}
+}

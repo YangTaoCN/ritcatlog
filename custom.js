@@ -33,7 +33,6 @@ function postOpenWindow(URL, PARAMS) {
 }
 
 function addCheckbox (){
-        console.log($('.dataTables_scrollBody tbody tr td a input').length);
         if ( $('.dataTables_scrollBody tbody tr td a input').length == 0) {
                 $('.dataTables_scrollBody tbody tr td a img').each( function () {
                     var aTag = this.parentNode;
@@ -91,6 +90,16 @@ jQuery(document).ready(function($){
 
   });
 
+  // Add class for css 
+  $('[src="CCRG-logo-black.png"]').addClass('logo');
+  $('body table').first().addClass('intro-text');
+/*
+  var introText = $('body table tr td ').html();
+  introText = introText.replace(/<br>/g, '');
+  var introPara = document.createElement("td");
+  introPara.innerHTML = introText; 
+  $('.intro-text tr').prepend(introPara);  
+*/
   var originalTitle = $('.dataTables_scrollHead thead')[0].innerHTML;
 
   // Start point of range search
@@ -102,27 +111,27 @@ jQuery(document).ready(function($){
   // Add input elements for equality search and range search.
   $('.dataTables_scrollFoot tfoot th').each( function () {
       if ( noSearch.indexOf(order) === -1 ) {
-        $(this).html( '\
-        <input id="e-search" class="search" type="text" placeholder="Equality Search" />\
-        </br><span class="search">Min:<input class="r-search" id="min-r-search-'+order+'" type="text" placeholder="Range Start" /></span>\
-        </br><span class="search">Max:<input class="r-search" id="max-r-search-'+order+'" type="text" placeholder="Range End" /></span>\
-        ' );
+	$(this).html( '\
+	<input id="e-search" class="search" type="text" placeholder="Equality Search" />\
+	</br><span class="search">Min:<input class="r-search" id="min-r-search-'+order+'" type="text" placeholder="Range Start" /></span>\
+	</br><span class="search">Max:<input class="r-search" id="max-r-search-'+order+'" type="text" placeholder="Range End" /></span>\
+	' );
       } else if (order == 2){
-        $(this).html( '\
-          <button class="download-selected" type="button">Download Selected Items</button></br>\
-          <p>Select All</p>\
-          <div class="link-select" id="select-text">\
-          <label><input name="link-text" type="checkbox" class="select-all" id="select-text" /> </label>\
-          </div>\
-          <div class="link-select" id="select-psi">\
-          <label><input name="link-psi" type="checkbox" class="select-all" id="select-psi" /> </label> </br>\
-          </div>\
-          <div class="link-select" id="select-strain">\
-          <label><input name="link-strain" type="checkbox" class="select-all" id="select-strain" /> </label> </br>\
-          </div>\
-        ');
+	$(this).html( '\
+	  <button class="download-selected" type="button">Download Selected Items</button></br>\
+	  <p>Select All</p>\
+	  <div class="link-select" id="select-text">\
+	  <label><input name="link-text" type="checkbox" class="select-all" id="select-text" /> </label>\
+	  </div>\
+	  <div class="link-select" id="select-psi">\
+	  <label><input name="link-psi" type="checkbox" class="select-all" id="select-psi" /> </label> </br>\
+	  </div>\
+	  <div class="link-select" id="select-strain">\
+	  <label><input name="link-strain" type="checkbox" class="select-all" id="select-strain" /> </label> </br>\
+	  </div>\
+	');
       } else {
-        $(this).html( '' );
+	$(this).html( '' );
       }
       order += 1;
   } );
@@ -152,6 +161,14 @@ jQuery(document).ready(function($){
     inputId += 1;
   });
 
+  // Add link to full screen 
+  if(self != top){
+    var full = document.createElement("a");
+    full.text = " [Full Screen]";
+    full.target = "_blank";
+    full.href = "https://ccrg.rit.edu/~RITCatalog/";
+    $('.dataTables_length').append(full);
+  }
 
   // Move the input to header.
   var inputTitle = $('.dataTables_scrollFoot tfoot tr');
@@ -164,16 +181,16 @@ jQuery(document).ready(function($){
   $("input[type='checkbox']").each(function (){
     $("#" + this.id).on("change", function () {
       if ($("#"+this.id).is(":checked") ) {
-        // add link if checked
-        if (downloadLinks.indexOf(this.parentNode.getAttribute('href', 2)) === -1) {
-          downloadLinks.push(this.parentNode.getAttribute('href', 2));
-        }
+	// add link if checked
+	if (downloadLinks.indexOf(this.parentNode.getAttribute('href', 2)) === -1) {
+	  downloadLinks.push(this.parentNode.getAttribute('href', 2));
+	}
       } else {
-        // remove link if unchecked
-        var remove = downloadLinks.indexOf(this.parentNode.getAttribute('href', 2));
-        if (remove > -1) {
-          downloadLinks.splice(remove, 1);
-        }
+	// remove link if unchecked
+	var remove = downloadLinks.indexOf(this.parentNode.getAttribute('href', 2));
+	if (remove > -1) {
+	  downloadLinks.splice(remove, 1);
+	}
       }
     });
   });
@@ -182,16 +199,16 @@ jQuery(document).ready(function($){
   $(".select-all").on("change", function () {
     if ($("thead #" + this.id).is(":checked")) {
       $("input[name=" + this.id + "]").prop("checked", true).each(function () {
-        if (downloadLinks.indexOf(this.parentNode.getAttribute('href', 2)) === -1) {
-          downloadLinks.push(this.parentNode.getAttribute('href', 2));
-        }
+	if (downloadLinks.indexOf(this.parentNode.getAttribute('href', 2)) === -1) {
+	  downloadLinks.push(this.parentNode.getAttribute('href', 2));
+	}
       } );          
     } else {
       $("input[name=" + this.id + "]").prop("checked", false).each(function () {
-        var remove = downloadLinks.indexOf(this.parentNode.getAttribute('href', 2));
-        if (remove > -1) {
-          downloadLinks.splice(remove, 1);
-        }
+	var remove = downloadLinks.indexOf(this.parentNode.getAttribute('href', 2));
+	if (remove > -1) {
+	  downloadLinks.splice(remove, 1);
+	}
       } );    
     }
   });
@@ -206,39 +223,14 @@ jQuery(document).ready(function($){
 	
   // Listening to page change
   $('#example_info').bind("DOMSubtreeModified", function(){
-   	addCheckbox();
+	addCheckbox();
   });
 
-
-/*
-function(){
-	if ( $('.dataTables_scrollBody tbody tr td a input').length =  0) {
-		$('.dataTables_scrollBody tbody tr td a img').each( function () {
-		    var aTag = this.parentNode;
-		    var inputTag = document.createElement("input" );
-		    inputTag.type = "checkbox";
-		    inputTag.id = "link-"+inputId;
-		    if (this.src.indexOf("metadata.png") > -1){
-		      inputTag.name = "select-text";
-		    } else if (this.src.indexOf("strain_tarball.png") > -1) {
-		      inputTag.name = "select-strain";
-		    } else {
-		      inputTag.name = "select-psi";
-		    }
-		    aTag.prepend(inputTag);
-		    aTag.target = "view_window";
-		    names = aTag.href.split('/');
-		    aTag.download = names.pop();
-		    inputId += 1;
-		});
-	}	
-  } */
 
   // when the length change, remove all the selected files and uncheck the boxes.
   $("[name='example_length']" ).change( function(){ 
 	downloadLinks = [];
-	console.log(downloadLinks);
-   	$('.select-all').each( function(){
+	$('.select-all').each( function(){
 		if ($('thead #' + this.id).is(":checked")){
 			this.click();
 		} else {
@@ -254,16 +246,21 @@ function(){
       var that = this;
 
       $('#e-search', this.footer()).on( 'keyup change', function () {
-          if ( that.search() !== this.value ) {
-              that
-                  .search( this.value )
-                  .draw();
-          }
+	  if ( that.search() !== this.value ) {
+	      that
+		  .search( this.value )
+		  .draw();
+	  }
       } );
 
       $('.r-search', this.footer()).keyup(function (e) {
-          if (cols.indexOf(that.index()) === -1) cols.push(that.index());
-          that.draw();
+	  if (cols.indexOf(that.index()) === -1) cols.push(that.index());
+	  that.draw();
       } );
   } );
+
+  // Make the window visible after js is loaded.  
+  $('body').css("visibility", "visible");
 });
+
+

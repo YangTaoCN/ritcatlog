@@ -5,7 +5,6 @@
  */
 set_time_limit(0);
 ini_set('memory_limit', '512M');
-
 function create_zip($files = array(),$destination = 'tmp.zip') {
 	$valid_files = array();
         $absent_files = "";

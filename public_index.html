@@ -7,21 +7,17 @@
 <script src="sorttable.js"></script>
 -->
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" type="text/css" href="custom.css">
         <style type="text/css" class="init">
 
         </style>
         <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
         <script type="text/javascript" language="javascript" src="iframeResizer.contentWindow.min.js"></script>
+        <script type="text/javascript" language="javascript" src="custom.js"></script>
 <script type="text/javascript" class="init">
 
-$(document).ready(function() {
-        $('#example').DataTable({
-  "scrollY": "650px",
-  "scrollX": "true",
-  "scrollCollapse": true
-  });
-} );
+
 </script>
 
 <body>
@@ -59,7 +55,7 @@ $(document).ready(function() {
 <th>    Res. Tag </th>
 <th>    Links </th>
 <th>    Type </th>
-<th>    Simp. Prop. Dist. </th>
+<th>    Simp. Prop. Dist.
 <th>    Init. Coord. Sep. </th>
 <th>    q=m<sub>1</sub>/m<sub>2</sub> </th>
 <th>    &chi;<sub>1x</sub> </th>
@@ -77,6 +73,7 @@ $(document).ready(function() {
 <th>    Peak Lumin. (ergs/s) </th>
 <th>    Bibtex Keys </th>
 </thead>
+
 <tbody>
 <tr>
   <td style="white-space:nowrap;">RIT:BBH:0001</td>
@@ -9358,9 +9355,34 @@ $(document).ready(function() {
   <td>2.461e+56</td>
   <td style="white-space:nowrap;"></td>
 </tr>
+<tfoot>
+  <tr>
+<th>    Cat. Num.<br><a href="public_index_names.html" style="color:#9C33FF">Show names</a> </th>
+<th>    Res. Tag </th>
+<th>    Links </th>
+<th>    Type </th>
+<th>    Simp. Prop. Dist.
+<th>    Init. Coord. Sep. </th>
+<th>    q=m<sub>1</sub>/m<sub>2</sub> </th>
+<th>    &chi;<sub>1x</sub> </th>
+<th>    &chi;<sub>1y</sub> </th>
+<th>    &chi;<sub>1z</sub> </th>
+<th>    &chi;<sub>2x</sub> </th>
+<th>    &chi;<sub>2y</sub> </th>
+<th>    &chi;<sub>2z</sub> </th>
+<th>    Mf<sub>2,2start</sub> </th>
+<th>    Merger Time </th>
+<th>    Cycles 2,2 </th>
+<th>    M<sub>rem</sub>/M </th>
+<th>    &chi;<sub>rem</sub> </th>
+<th>    Recoil (km/s) </th>
+<th>    Peak Lumin. (ergs/s) </th>
+<th>    Bibtex Keys </th>
+</tfoot>
 </tbody>
 </table>
 <p><hr>
 <br> Release version 2.0
 <br>Last updated: Thu Jan 10 08:08:55 EST 2019
 <br>View the <a href="changelog">changelog</a>
+
