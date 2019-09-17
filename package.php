@@ -5,6 +5,7 @@
  */
 set_time_limit(0);
 ini_set('memory_limit', '512M');
+ini_set('date.timezone','US/Eastern');
 function create_zip($files = array(),$destination = 'tmp.zip') {
 	$valid_files = array();
         $absent_files = "";
@@ -29,7 +30,15 @@ function create_zip($files = array(),$destination = 'tmp.zip') {
                   return false;
                 }
 
-                // Add files to zip
+		$user_IP = ($_SERVER["HTTP_VIA"]) ? $_SERVER["HTTP_X_FORWARDED_FOR"] : $_SERVER["REMOTE_ADDR"];
+                $user_IP = ($user_IP) ? $user_IP : $_SERVER["REMOTE_ADDR"]; 
+                $file = "log/download_log_".date("d-m-Y").".txt"; 
+                $content = date("d-m-Y H:i:s")."---".implode(" ** ",$valid_files). "  IP->".$user_IP."\n"; 
+                $log_file = fopen($file, "a+"); 
+                fwrite($log_file, $content); 
+                fclose($log_file); 
+                
+		// Add files to zip
                 foreach($valid_files as $file) {
                         // keep the names.
                         $zip->addFile($file,$file);
