@@ -227,7 +227,8 @@ jQuery(document).ready(function($){
 	
   // Listening to page change
   $('#example_info').bind("DOMSubtreeModified", function(){
-	addCheckbox();
+	    addCheckbox();
+      listenCheck();
   });
 
 
@@ -257,8 +258,7 @@ jQuery(document).ready(function($){
           cols[idx] = arr;
  	  that.draw();
       } );
-      addCheckbox();
-      listenCheck();
+      
   } );
 
   // Make the window visible after js is loaded.  
