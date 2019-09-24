@@ -5,34 +5,34 @@ body {
 .sorting sub,
 .sorting_desc sub,
 .sorting_asc sub {
-        line-height: 36px;
+  line-height: 36px;
 }
 
 th .search{
-	display: block;
-	width: 100%;
-	margin: 0 5px;
+  display: block;
+  width: 100%;
+  margin: 0 5px;
 }
 
 a {
-	text-decoration: none;
+  text-decoration: none;
 }
 
 a input {
-	position: relative;
-	bottom: 20px;
+  position: relative;
+  bottom: 20px;
 }
 
 .link-select {
-	display: inline-flex;
+  display: inline-flex;
 }
 
 .download-selected {
-	background-color: #007F7F;
-	color: #fff;
-	border-radius: 5px;
-	line-height: 2;
-	font-weight: 600;
+  background-color: #007F7F;
+  color: #fff;
+  border-radius: 5px;
+  line-height: 2;
+  font-weight: 600;
 }
 
 body h1 {
@@ -46,12 +46,12 @@ body h1 {
 }
 
 .dataTables_scroll tbody td {
-	text-align: center;
+  text-align: center;
 }
 
 table.dataTable thead tr:first-child th{
-	padding-left: 1px;
-	padding-right: 1px;
+  padding-left: 1px;
+  padding-right: 1px;
 }
 
 .logo {
@@ -73,5 +73,5 @@ body a,
 }
 
 @media (max-width: 768px) {
-	.logo {display: none;}
+  .logo {display: none;}
 }
