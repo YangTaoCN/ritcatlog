@@ -2,6 +2,12 @@ body {
   visibility: hidden;
 }
 
+.sorting sub,
+.sorting_desc sub,
+.sorting_asc sub {
+        line-height: 36px;
+}
+
 th .search{
 	display: block;
 	width: 100%;

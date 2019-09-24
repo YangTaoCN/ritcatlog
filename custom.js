@@ -227,10 +227,9 @@ jQuery(document).ready(function($){
 	
   // Listening to page change
   $('#example_info').bind("DOMSubtreeModified", function(){
-	    addCheckbox();
-      listenCheck();
-  });
-
+	addCheckbox();
+        listenCheck();
+  }); 
 
   // when the length change, remove all the selected files and uncheck the boxes.
   $("[name='example_length']" ).change( function(){ 
@@ -258,7 +257,6 @@ jQuery(document).ready(function($){
           cols[idx] = arr;
  	  that.draw();
       } );
-      
   } );
 
   // Make the window visible after js is loaded.  
